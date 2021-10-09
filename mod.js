@@ -108,7 +108,7 @@ function initSpace2() {
   p = 0;
 
   base_image = document.createElement("img");
-  base_image.src = "https://raw.githubusercontent.com/OOP-FIIT/oop-2020-uto-16-c-kovacik-rericha19/master/temp/book_icon.png?token=ANJHWR6S7ZUSYROO3YHGTL3BMFRZA";
+  base_image.src = "space.jpg";
   base_image.onload = function () {
     for (let i = 0; i < 11; i++) {
       for (let j = 0; j < 11; j++) {
@@ -124,14 +124,6 @@ function initSpace2() {
     }
   };
 }
-
-window.drawMissiles = function () {
-  space_ship = document.createElement("img");
-  space_ship.src = "lod.png";
-  space_ship.onload = function () {
-    context.drawImage(space_ship, 0, 0, 48, 48);
-  };
-};
 
 window.drawSpace = function () {
   var space = document.getElementById("space");
@@ -184,7 +176,7 @@ window.drawMissiles = function () {
   console.log("teraz som v draw missiles");
   // // console.log(position);
   missile = document.createElement("img");
-  missile.src = "missile.jpg";
+  missile.src = "raketa.jpg";
   missile.onload = function () {
     var i = 0;
     for (i = 0; i < missiles.length; i++) {
@@ -201,7 +193,7 @@ window.drawMissiles = function () {
 
 window.drawShip = function () {
   space_ship = document.createElement("img");
-  space_ship.src = "lod.png";
+  space_ship.src = "lod.jpg";
   space_ship.onload = function () {
     var i = 0;
     for (i = 0; i < ship.length; i++) {
