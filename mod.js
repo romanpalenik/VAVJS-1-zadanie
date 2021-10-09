@@ -176,7 +176,8 @@ window.drawMissiles = function () {
   console.log("teraz som v draw missiles");
   // // console.log(position);
   missile = document.createElement("img");
-  missile.src = "raketa.jpg";
+  missile.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/raketa.jpg";
   missile.onload = function () {
     var i = 0;
     for (i = 0; i < missiles.length; i++) {
@@ -193,7 +194,8 @@ window.drawMissiles = function () {
 
 window.drawShip = function () {
   space_ship = document.createElement("img");
-  space_ship.src = "lod.jpg";
+  space_ship.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/lod.jpg";
   space_ship.onload = function () {
     var i = 0;
     for (i = 0; i < ship.length; i++) {
