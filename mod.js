@@ -1,7 +1,14 @@
 // Projekt Palenik AIS id: 103803
+// music source: https://pixabay.com/music/beats-chill-lofi-song-8444/ co je CC licencia
+// mam vlastne obrazky z https://github.com/romanpalenik/VAVJS-1-zadanie, na tieto fotky davam free prava ako majitel fotiek
 
-localStorage.setItem("debugMode", false);
-var debugMode = localStorage.getItem("debugMode");
+localStorage.setItem("debugMode", true);
+
+function printMessege(message) {
+  if (localStorage.getItem("debugMode") == "true") {
+    console.log(message);
+  }
+}
 
 let btn = document.createElement("button");
 btn.innerHTML = "Restart";
@@ -9,8 +16,6 @@ btn.id = "restart";
 document.body.appendChild(btn);
 
 document.getElementById("restart").addEventListener("click", function () {
-  console.log("joj mano");
-
   initSpace2();
   aliens = [1, 3, 5, 7, 9, 23, 25, 27, 29, 31];
   direction = 1;
@@ -20,6 +25,8 @@ document.getElementById("restart").addEventListener("click", function () {
   level = 1;
   speed = 512;
   running = false;
+  skore = 0;
+  skoreCounter.innerHTML = "Skore: " + skore;
 
   document.removeEventListener("keydown", checkKey);
 });
@@ -52,8 +59,26 @@ levelCounter.innerHTML = "Level: 1";
 levelCounter.id = "levelCounter";
 document.body.appendChild(levelCounter);
 
+let skoreCounter = document.createElement("h4");
+var skore = 0;
+skoreCounter.innerHTML = "Skore: 0";
+skoreCounter.id = "skoreCounter";
+document.body.appendChild(skoreCounter);
+
+window.checkCollisionsMA = function () {
+  for (var i = 0; i < missiles.length; i++) {
+    if (aliens.includes(missiles[i])) {
+      var alienIndex = aliens.indexOf(missiles[i]);
+      aliens.splice(alienIndex, 1);
+      missiles.splice(i, 1);
+      skore = skore + 10;
+    }
+  }
+};
+
 var loop2 = setInterval(function () {
   levelCounter.innerHTML = "Level: " + level;
+  skoreCounter.innerHTML = "Skore: " + skore;
 }, speed);
 
 let btn2 = document.createElement("button");
@@ -63,29 +88,21 @@ document.body.appendChild(btn2);
 
 var audioRunnig = false;
 var audio = new Audio(
-  "https://r2---sn-xoxgbvuxa-cunz.googlevideo.com/videoplayback?vprv=1&fexp=24001373,24007246&lmt=1626432571932033&gir=yes&itag=249&expire=1633575887&requiressl=yes&clen=20934475&source=youtube&txp=5511222&c=WEB&dur=3514.541&n=RAqQfSDo7Ag97Q&mime=audio%2Fwebm&keepalive=yes&sig=AOq0QJ8wRgIhAIMHR2Aor8h4GLcI4lEs8nX8PmC4jksG6ThUS-mnh09pAiEA6yre8LNCAsZsDfweZAZdNMLJSgEa7fi9NmgS0x-UeUA%3D&ns=cKWPUTAzvEIZZ6Z6RlEDO24G&ei=bw9eYZWvFKaO2LYP5Ny3iAs&ip=191.102.132.21&id=o-AN62jD31rUaAyd79P_-rIC7RK9hvJ0tyTvUmEA_PPa4g&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&title=Best%20Non%20Copyrighted%20Music%202020%20_%201%20Hour%20Copyright%20Free%20Music%20Mix&redirect_counter=1&rm=sn-ab5yy7z&req_id=1e384bdc13aa3ee&cms_redirect=yes&ipbypass=yes&mh=id&mip=147.175.181.5&mm=31&mn=sn-xoxgbvuxa-cunz&ms=au&mt=1633552623&mv=m&mvi=2&pcm2cms=yes&pl=16&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pcm2cms,pl&lsig=AG3C_xAwRQIgQ7m5YY632e_7xGmTnFteCC81n-1fDxX0DBcOoLK_xwICIQCheR5Sh1YJtSuLFqgFgx9KKP3P7IlfoNm1Hqh7ONmBmg%3D%3D"
+  "https://cdn.pixabay.com/download/audio/2021/09/17/audio_5806ac1e1c.mp3?filename=chill-lofi-song-8444.mp3"
 );
 document.getElementById("audio").onclick = function () {
   if (!audioRunnig) {
     audio.play();
     audioRunnig = true;
     btn2.innerHTML = "Zastavit muziku";
+    printMessege("hra muzika");
   } else {
     audio.pause();
     audioRunnig = false;
     btn2.innerHTML = "Hrat muziku";
+    printMessege("nehra muzika");
   }
-  console.log("hram");
 };
-
-var DEBUG = true;
-if (!DEBUG) {
-  if (!window.console) window.console = {};
-  var methods = ["log", "debug", "warn", "info"];
-  for (var i = 0; i < methods.length; i++) {
-    console[methods[i]] = function () {};
-  }
-}
 
 // pome na ten canvas
 var canvas = document.createElement("canvas");
@@ -126,6 +143,7 @@ function initSpace2() {
 }
 
 window.drawSpace = function () {
+  printMessege("kreslim vesmir ci pana");
   var space = document.getElementById("space");
   space.innerHTML = "";
   space.appendChild(canvas);
@@ -136,7 +154,8 @@ window.drawSpace = function () {
   p = 0;
 
   base_image = document.createElement("img");
-  base_image.src = "space.jpg";
+  base_image.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/space.jpg";
   base_image.onload = function () {
     for (let i = 0; i < 11; i++) {
       for (let j = 0; j < 11; j++) {
@@ -154,8 +173,7 @@ window.drawSpace = function () {
 };
 
 window.drawAliens = function () {
-  console.log("teraz som v draw aliens");
-  // console.log(position);
+  printMessege("kreslim alienov");
   alien = document.createElement("img");
   alien.src =
     "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/alien.jpg";
@@ -174,7 +192,7 @@ window.drawAliens = function () {
 };
 
 window.drawMissiles = function () {
-  console.log("teraz som v draw missiles");
+  printMessege("kreslim rakety");
   missile = document.createElement("img");
   missile.src =
     "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/raketa.jpg";
@@ -213,6 +231,7 @@ window.drawShip = function () {
 window.initSpace = initSpace2();
 
 window.win = function () {
+  printMessege("vyhral si, tak to si riadny divocak");
   win_img = document.createElement("img");
   win_img.src =
     "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/win.jpg";
@@ -225,6 +244,7 @@ window.win = function () {
 };
 
 window.loose = function () {
+  printMessege("tak to si pekne slaby degesko");
   running = false;
 
   loose_img = document.createElement("img");
