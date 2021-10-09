@@ -157,7 +157,8 @@ window.drawAliens = function () {
   console.log("teraz som v draw aliens");
   // console.log(position);
   alien = document.createElement("img");
-  alien.src = "alien.jpg";
+  alien.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/alien.jpg";
   alien.onload = function () {
     var i = 0;
     for (i = 0; i < aliens.length; i++) {
@@ -174,7 +175,6 @@ window.drawAliens = function () {
 
 window.drawMissiles = function () {
   console.log("teraz som v draw missiles");
-  // // console.log(position);
   missile = document.createElement("img");
   missile.src =
     "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/raketa.jpg";
@@ -214,7 +214,8 @@ window.initSpace = initSpace2();
 
 window.win = function () {
   win_img = document.createElement("img");
-  win_img.src = "win.jpg";
+  win_img.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/win.jpg";
   win_img.onload = function () {
     var i = 0;
     for (i = 0; i < 121; i++) {
@@ -227,7 +228,8 @@ window.loose = function () {
   running = false;
 
   loose_img = document.createElement("img");
-  loose_img.src = "loose.jpg";
+  loose_img.src =
+    "https://raw.githubusercontent.com/romanpalenik/VAVJS-1-zadanie/main/loose.jpg";
   loose_img.onload = function () {
     var i = 0;
     for (i = 0; i < 121; i++) {
